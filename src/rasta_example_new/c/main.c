@@ -10,7 +10,7 @@
 #include "rmemory.h"
 #include <unistd.h>
 
-#define CONFIG_PATH_S "../../../rasta_server.cfg"
+#define CONFIG_PATH_S "../../../rasta_server.cfg" //  connect directly to rb
 #define CONFIG_PATH_C1 "../../../rasta_client1.cfg"
 #define CONFIG_PATH_C2 "../../../rasta_client2.cfg"
 
@@ -25,7 +25,7 @@ void printHelpAndExit(void){
 
 void addRastaString(struct RastaMessageData * data, int pos, char * str) {
     int size =  strlen(str) + 1;
-
+    
     struct RastaByteArray msg ;
     allocateRastaByteArray(&msg, size);
     rmemcpy(msg.bytes, str, size);
@@ -59,7 +59,7 @@ void onConnectionStateChange(struct rasta_notification_result *result) {
                 // messageData1.data_array[0] = msg1;
                 // messageData1.data_array[1] = msg2;
                 addRastaString(&messageData1, 0, "Message from Sender 1");
-
+                
                 //send data to server
                 sr_send(result->handle,ID_R, messageData1);
 
@@ -173,11 +173,21 @@ int main(int argc, char *argv[]){
     struct RastaIPData toServer[2];
 
 #ifdef EXAMPLE_IP_OVERRIDE
-    strcpy(toServer[0].ip, getenv("SERVER_CH1"));
-    strcpy(toServer[1].ip, getenv("SERVER_CH2"));
+    // strcpy(toServer[0].ip, getenv("SERVER_CH1"));
+    // strcpy(toServer[1].ip, getenv("SERVER_CH2"));
+ char *server1IP = getenv("SERVER_CH1");
+    char *server2IP = getenv("SERVER_CH2");
+    if (server1IP == NULL || server2IP == NULL)
+    {
+        printf("Error: no SERVER_CH1 or SERVER_CH2 environment variable specified\n");
+        return 1;
+    }
+    strcpy(toServer[0].ip, server1IP);
+    strcpy(toServer[1].ip, server2IP);
+
 #else
-    strcpy(toServer[0].ip, "10.0.0.100");
-    strcpy(toServer[1].ip, "10.0.0.101");
+    strcpy(toServer[0].ip, "192.168.83.20");
+    strcpy(toServer[1].ip, "192.168.83.21");
 #endif
     toServer[0].port = 8888;
     toServer[1].port = 8889;
@@ -229,5 +239,7 @@ int main(int argc, char *argv[]){
 
     getchar();
     sr_cleanup(&h);
+
+    return 0;
 }
 

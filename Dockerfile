@@ -22,16 +22,23 @@ ARG CLIENT2_CH1
 ARG CLIENT2_CH2
 
 # replace IPs in remote example config files
-RUN sed -i -e "s/10.0.0.100/$SERVER_CH1/g" /opt/rasta-c/config/rasta_server.cfg &&\
-    sed -i -e "s/10.0.0.101/$SERVER_CH2/g" /opt/rasta-c/config/rasta_server.cfg &&\
-    sed -i -e "s/10.0.0.200/$CLIENT1_CH1/g" /opt/rasta-c/config/rasta_client1.cfg &&\
-    sed -i -e "s/10.0.0.201/$CLIENT1_CH2/g" /opt/rasta-c/config/rasta_client1.cfg &&\
-    sed -i -e "s/10.0.0.250/$CLIENT2_CH1/g" /opt/rasta-c/config/rasta_client2.cfg &&\
-    sed -i -e "s/10.0.0.251/$CLIENT2_CH2/g" /opt/rasta-c/config/rasta_client2.cfg
+# RUN sed -i -e "s/10.0.0.100/$SERVER_CH1/g" /opt/rasta-c/config/rasta_server.cfg &&\
+  #  sed -i -e "s/10.0.0.101/$SERVER_CH2/g" /opt/rasta-c/config/rasta_server.cfg &&\
+   # sed -i -e "s/10.0.0.200/$CLIENT1_CH1/g" /opt/rasta-c/config/rasta_client1.cfg &&\
+    #sed -i -e "s/10.0.0.201/$CLIENT1_CH2/g" /opt/rasta-c/config/rasta_client1.cfg &&\
+    #sed -i -e "s/10.0.0.250/$CLIENT2_CH1/g" /opt/rasta-c/config/rasta_client2.cfg &&\
+    #sed -i -e "s/10.0.0.251/$CLIENT2_CH2/g" /opt/rasta-c/config/rasta_client2.cfg
+
+    RUN sed -i -e "s/192.168.83.20/$SERVER_CH1/g" /opt/rasta-c/config/rasta_server.cfg &&\
+    sed -i -e "s/192.168.83.21/$SERVER_CH2/g" /opt/rasta-c/config/rasta_server.cfg &&\
+    sed -i -e "s/192.168.178.29/$CLIENT1_CH1/g" /opt/rasta-c/config/rasta_client1.cfg &&\
+    sed -i -e "s/192.168.178.30/$CLIENT1_CH2/g" /opt/rasta-c/config/rasta_client1.cfg &&\
+    sed -i -e "s/192.168.1.23/$CLIENT2_CH1/g" /opt/rasta-c/config/rasta_client2.cfg &&\
+    sed -i -e "s/192.168.1.20/$CLIENT2_CH2/g" /opt/rasta-c/config/rasta_client2.cfg
 
 # set build args as env variables for the container
 ENV SERVER_CH1=${SERVER_CH1} \
     SERVER_CH2=${SERVER_CH2}
 
 # build librasta and examples
-RUN cd /opt/rasta-c/ && mkdir -p build && cd build && cmake -DEXAMPLE_IP_OVERRIDE:BOOL=ON .. && make
+RUN cd /opt/rasta-c/ && mkdir -p build && cd build && cmake -DEXAMPLE_IP_OVERRIDE:BOOL=ON .. &&  make
