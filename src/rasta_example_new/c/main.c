@@ -196,10 +196,11 @@ int main(int argc, char *argv[]){
 
 
     if (strcmp(argv[1], "r") == 0) {
-        printf("->   R (ID = 0x%lX)\n", (unsigned long)ID_R);
-
+        printf("->   R (ID = 0x%lX)\n  server connected to edge cloud", (unsigned long)ID_R);
         getchar();
+        printf(" +a ");
         sr_init_handle(&h, CONFIG_PATH_S);
+        printf(" +b ");
         h.notifications.on_connection_state_change = onConnectionStateChange;
         h.notifications.on_receive = onReceive;
         h.notifications.on_handshake_complete = onHandshakeCompleted;
@@ -207,9 +208,9 @@ int main(int argc, char *argv[]){
 
     }
     else if (strcmp(argv[1], "s1") == 0) {
-        printf("->   S1 (ID = 0x%lX)\n", (unsigned long)ID_S1);
-
+        printf("->   S1 (ID = 0x%lX)\n ", (unsigned long)ID_S1);
         sr_init_handle(&h, CONFIG_PATH_C1);
+    
         h.notifications.on_connection_state_change = onConnectionStateChange;
         h.notifications.on_receive = onReceive;
         h.notifications.on_handshake_complete = onHandshakeCompleted;
