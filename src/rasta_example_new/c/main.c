@@ -10,9 +10,9 @@
 #include "rmemory.h"
 #include <unistd.h>
 
-#define CONFIG_PATH_S "../../../rasta_server.cfg" //  connect directly to rb
-#define CONFIG_PATH_C1 "../../../rasta_client1.cfg"
-#define CONFIG_PATH_C2 "../../../rasta_client2.cfg"
+#define CONFIG_PATH_S "rasta_server.cfg" //  connect directly to rb ../../../
+#define CONFIG_PATH_C1 "rasta_client1.cfg"
+#define CONFIG_PATH_C2 "rasta_client2.cfg"
 
 #define ID_R 0x61
 #define ID_S1 0x62
@@ -55,11 +55,9 @@ void onConnectionStateChange(struct rasta_notification_result *result) {
             if (result->connection.my_id == ID_S1) { //Client 1
                 struct RastaMessageData messageData1;
                 allocateRastaMessageData(&messageData1, 1);
-
                 // messageData1.data_array[0] = msg1;
                 // messageData1.data_array[1] = msg2;
-                addRastaString(&messageData1, 0, "Message from Sender 1");
-                
+                addRastaString(&messageData1, 0, "Message from Sender 1");      
                 //send data to server
                 sr_send(result->handle,ID_R, messageData1);
 
@@ -148,8 +146,6 @@ void onReceive(struct rasta_notification_result *result) {
 
             sr_disconnect(result->handle,target);
 
-
-
             break;
         case ID_S1: case ID_S2:
             printf("\nReceived data from Server %lu", result->connection.remote_id);
@@ -164,7 +160,7 @@ void onReceive(struct rasta_notification_result *result) {
     }
 }
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]){    
 
     if (argc != 2) printHelpAndExit();
 
@@ -175,7 +171,7 @@ int main(int argc, char *argv[]){
 #ifdef EXAMPLE_IP_OVERRIDE
     // strcpy(toServer[0].ip, getenv("SERVER_CH1"));
     // strcpy(toServer[1].ip, getenv("SERVER_CH2"));
- char *server1IP = getenv("SERVER_CH1");
+    char *server1IP = getenv("SERVER_CH1");
     char *server2IP = getenv("SERVER_CH2");
     if (server1IP == NULL || server2IP == NULL)
     {
@@ -197,7 +193,7 @@ int main(int argc, char *argv[]){
 
     if (strcmp(argv[1], "r") == 0) {
         printf("->   R (ID = 0x%lX)\n  server connected to edge cloud", (unsigned long)ID_R);
-        getchar();
+        
         printf(" +a ");
         sr_init_handle(&h, CONFIG_PATH_S);
         printf(" +b ");
@@ -205,6 +201,7 @@ int main(int argc, char *argv[]){
         h.notifications.on_receive = onReceive;
         h.notifications.on_handshake_complete = onHandshakeCompleted;
         h.notifications.on_heartbeat_timeout = onTimeout;
+        getchar();
 
     }
     else if (strcmp(argv[1], "s1") == 0) {
@@ -233,10 +230,6 @@ int main(int argc, char *argv[]){
         printf("->   Connection request sent to 0x%lX\n", (unsigned long)ID_R);
 
     }
-
-
-
-
 
     getchar();
     sr_cleanup(&h);
