@@ -81,8 +81,8 @@ int main(int argc, char *argv[]){
 
     struct RastaIPData toServer[2];
 
-strcpy(toServer[0].ip, "192.168.83.21");
-     strcpy(toServer[1].ip, "192.168.83.21");
+strcpy(toServer[0].ip, "192.168.241.51");
+     strcpy(toServer[1].ip, "192.168.241.51");
 
  //   strcpy(toServer[0].ip, "127.0.0.1");
  //   strcpy(toServer[1].ip, "127.0.0.1");
