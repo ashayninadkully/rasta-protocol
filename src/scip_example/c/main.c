@@ -68,8 +68,8 @@ int main(int argc, char *argv[]){
     strcpy(toServer[0].ip, getenv("SERVER_CH1"));
     strcpy(toServer[1].ip, getenv("SERVER_CH2"));
 #else
-   strcpy(toServer[0].ip, "192.168.83.21");
-     strcpy(toServer[1].ip, "192.168.83.21");
+   strcpy(toServer[0].ip, "192.168.241.51");
+     strcpy(toServer[1].ip, "192.168.241.52");
   //  strcpy(toServer[0].ip, "10.0.0.100");
   //  strcpy(toServer[1].ip, "10.0.0.101");
 #endif

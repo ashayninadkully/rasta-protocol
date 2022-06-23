@@ -1,6 +1,4 @@
-//
 // Created by tobia on 24.02.2018.
-//
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,9 +8,9 @@
 #include "rmemory.h"
 #include <unistd.h>
 
-#define CONFIG_PATH_S "../../../rasta_server_local.cfg"
-#define CONFIG_PATH_C1 "../../../rasta_client1_local.cfg"
-#define CONFIG_PATH_C2 "../../../rasta_client2_local.cfg"
+#define CONFIG_PATH_S "rasta_server_local.cfg" //#define CONFIG_PATH_S "../../../rasta_server_local.cfg"
+#define CONFIG_PATH_C1 "rasta_client1_local.cfg"
+#define CONFIG_PATH_C2 "rasta_client2_local.cfg"
 
 #define ID_R 0x61
 #define ID_S1 0x62
@@ -34,6 +32,7 @@ void addRastaString(struct RastaMessageData * data, int pos, char * str) {
 }
 
 int client1 = 1;
+
 int client2 = 1;
 
 void onConnectionStateChange(struct rasta_notification_result *result) {
@@ -49,11 +48,13 @@ void onConnectionStateChange(struct rasta_notification_result *result) {
         case RASTA_CONNECTION_DOWN:
             printf("\nCONNECTION_DOWN \n\n");
             break;
+
         case RASTA_CONNECTION_UP:
             printf("\nCONNECTION_UP \n\n");
             //send data to server
             if (result->connection.my_id == ID_S1) { //Client 1
                 struct RastaMessageData messageData1;
+
                 allocateRastaMessageData(&messageData1, 1);
 
                 // messageData1.data_array[0] = msg1;
@@ -136,8 +137,6 @@ void onReceive(struct rasta_notification_result *result) {
 
             addRastaString(&messageData1,0,(char*)p.appMessage.bytes);
 
-
-
             sr_send(result->handle,target,messageData1);
 
             printf("Message forwarded\n");
@@ -147,7 +146,6 @@ void onReceive(struct rasta_notification_result *result) {
             printf("Disconnect to client %lu \n\n\n", target);
 
             sr_disconnect(result->handle,target);
-
 
 
             break;
@@ -174,8 +172,8 @@ int main(int argc, char *argv[]){
 
   //  strcpy(toServer[0].ip, "127.0.0.1"); 
   //  strcpy(toServer[1].ip, "127.0.0.1");// change the IP adress to connect to the Red Box server
-    strcpy(toServer[0].ip, "192.168.83.21");
-    strcpy(toServer[1].ip, "192.168.83.21"); // change the IP adress to connect to the Red Box server
+    strcpy(toServer[0].ip, "192.168.1.24");
+    strcpy(toServer[1].ip, "192.168.1.24"); // change the IP adress to connect to the Red Box server
     toServer[0].port = 8888;
     toServer[1].port = 8889;
 
@@ -206,7 +204,6 @@ int main(int argc, char *argv[]){
     }
     else if (strcmp(argv[1], "s2") == 0) {
         printf("->   S2 (ID = 0x%lX)\n", (unsigned long)ID_S2);
-
         sr_init_handle(&h, CONFIG_PATH_C2);
         h.notifications.on_connection_state_change = onConnectionStateChange;
         h.notifications.on_receive = onReceive;
@@ -216,12 +213,8 @@ int main(int argc, char *argv[]){
         sr_connect(&h,ID_R,toServer);
         printf("->   Connection request sent to 0x%lX\n", (unsigned long)ID_R);
 
+
     }
-
-
-
-
-
     getchar();
     sr_cleanup(&h);
 }

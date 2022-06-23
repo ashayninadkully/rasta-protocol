@@ -29,12 +29,12 @@ ARG CLIENT2_CH2
     #sed -i -e "s/10.0.0.250/$CLIENT2_CH1/g" /opt/rasta-c/config/rasta_client2.cfg &&\
     #sed -i -e "s/10.0.0.251/$CLIENT2_CH2/g" /opt/rasta-c/config/rasta_client2.cfg
 
-    RUN sed -i -e "s/192.168.83.20/$SERVER_CH1/g" /opt/rasta-c/config/rasta_server.cfg &&\
-    sed -i -e "s/192.168.83.21/$SERVER_CH2/g" /opt/rasta-c/config/rasta_server.cfg &&\
-    sed -i -e "s/192.168.178.29/$CLIENT1_CH1/g" /opt/rasta-c/config/rasta_client1.cfg &&\
-    sed -i -e "s/192.168.178.30/$CLIENT1_CH2/g" /opt/rasta-c/config/rasta_client1.cfg &&\
-    sed -i -e "s/192.168.1.23/$CLIENT2_CH1/g" /opt/rasta-c/config/rasta_client2.cfg &&\
-    sed -i -e "s/192.168.1.20/$CLIENT2_CH2/g" /opt/rasta-c/config/rasta_client2.cfg
+    RUN sed -i -e "s/192.168.241.51/$SERVER_CH1/g" /opt/rasta-c/config/rasta_server.cfg &&\
+    sed -i -e "s/192.168.241.52/$SERVER_CH2/g" /opt/rasta-c/config/rasta_server.cfg &&\
+    sed -i -e "s/192.168.241.57/$CLIENT1_CH1/g" /opt/rasta-c/config/rasta_client1.cfg &&\
+    sed -i -e "s/192.168.241.58/$CLIENT1_CH2/g" /opt/rasta-c/config/rasta_client1.cfg &&\
+    sed -i -e "s/192.168.241.53/$CLIENT2_CH1/g" /opt/rasta-c/config/rasta_client2.cfg &&\
+    sed -i -e "s/192.168.241.54/$CLIENT2_CH2/g" /opt/rasta-c/config/rasta_client2.cfg
 
 # set build args as env variables for the container
 ENV SERVER_CH1=${SERVER_CH1} \

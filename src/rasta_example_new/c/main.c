@@ -80,7 +80,6 @@ void onConnectionStateChange(struct rasta_notification_result *result) {
                 else if (result->connection.remote_id == ID_S2) client2 = 0;
             }
 
-
             break;
         case RASTA_CONNECTION_RETRREQ:
             printf("\nCONNECTION_RETRREQ \n\n");
@@ -118,7 +117,7 @@ void onReceive(struct rasta_notification_result *result) {
             printf("\nSend it to other client \n");
 
             unsigned long target;
-            if (p.id == ID_S1) {
+            if (p.id == ID_S1) {                        
                 while (client2) {sleep(1);}
                 target = ID_S2;
             }
@@ -133,7 +132,6 @@ void onReceive(struct rasta_notification_result *result) {
             allocateRastaMessageData(&messageData1, 1);
 
             addRastaString(&messageData1,0,(char*)p.appMessage.bytes);
-
 
 
             sr_send(result->handle,target,messageData1);
@@ -182,8 +180,8 @@ int main(int argc, char *argv[]){
     strcpy(toServer[1].ip, server2IP);
 
 #else
-    strcpy(toServer[0].ip, "192.168.83.20");
-    strcpy(toServer[1].ip, "192.168.83.21");
+    strcpy(toServer[0].ip, "192.168.1.24");
+    strcpy(toServer[1].ip, "192.168.1.24");
 #endif
     toServer[0].port = 8888;
     toServer[1].port = 8889;
@@ -192,16 +190,16 @@ int main(int argc, char *argv[]){
 
 
     if (strcmp(argv[1], "r") == 0) {
-        printf("->   R (ID = 0x%lX)\n  server connected to edge cloud", (unsigned long)ID_R);
+        printf("->   R (ID = 0x%lX)\n", (unsigned long)ID_R);
         
-        printf(" +a ");
+        //printf(" +a ");
         sr_init_handle(&h, CONFIG_PATH_S);
-        printf(" +b ");
+        //printf(" +b ");
         h.notifications.on_connection_state_change = onConnectionStateChange;
         h.notifications.on_receive = onReceive;
         h.notifications.on_handshake_complete = onHandshakeCompleted;
         h.notifications.on_heartbeat_timeout = onTimeout;
-        getchar();
+        getchar();   //test
 
     }
     else if (strcmp(argv[1], "s1") == 0) {
