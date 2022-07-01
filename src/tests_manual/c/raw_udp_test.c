@@ -6,7 +6,7 @@
  * The client sends a string message to the specified host and port and waits for a response. When a response is
  * received the client terminates.
  *
- * To use this example, first start an instance in server mode and after that another instance in client mode
+ * To use this example, first start an instance in server mode and after that another instance in client modeudp
  * to send a message and receive the echo.
  * The program is used with command line parameter 's' to start as the server
  * and parameters 'c <message>' to start as a client where <message> is the string which is sent to the server

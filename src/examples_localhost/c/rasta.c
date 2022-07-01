@@ -172,8 +172,8 @@ int main(int argc, char *argv[]){
 
   //  strcpy(toServer[0].ip, "127.0.0.1"); 
   //  strcpy(toServer[1].ip, "127.0.0.1");// change the IP adress to connect to the Red Box server
-    strcpy(toServer[0].ip, "192.168.1.24");
-    strcpy(toServer[1].ip, "192.168.1.24"); // change the IP adress to connect to the Red Box server
+    strcpy(toServer[0].ip, "192.168.178.33");
+    strcpy(toServer[1].ip, "192.168.178.33"); // change the IP adress to connect to the Red Box server
     toServer[0].port = 8888;
     toServer[1].port = 8889;
 

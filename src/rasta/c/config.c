@@ -474,7 +474,7 @@ void config_setstd(struct RastaConfig * cfg) {
     entr = config_get(cfg, "RASTA_T_MAX");
     if (entr.type != DICTIONARY_NUMBER || entr.value.number < 0) {
         //set std
-        cfg->values.sending.t_max = 1800;
+        cfg->values.sending.t_max = 3600;
     }
     else {
         //check valid format
@@ -485,7 +485,7 @@ void config_setstd(struct RastaConfig * cfg) {
     entr = config_get(cfg, "RASTA_T_H");
     if (entr.type != DICTIONARY_NUMBER || entr.value.number < 0) {
         //set std
-        cfg->values.sending.t_h = 300;
+        cfg->values.sending.t_h = 600;
     }
     else {
         //check valid format
@@ -693,7 +693,7 @@ void config_setstd(struct RastaConfig * cfg) {
     entr = config_get(cfg, "RASTA_T_SEQ");
     if (entr.type != DICTIONARY_NUMBER || entr.value.number < 0) {
         //set std
-        cfg->values.redundancy.t_seq = 100;
+        cfg->values.redundancy.t_seq = 200;
     }
     else {
         //check valid format
